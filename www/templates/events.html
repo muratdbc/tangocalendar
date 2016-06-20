@@ -1,0 +1,102 @@
+<ion-view view-title="Events">
+    <div ng-if="!vm.isCreating && !vm.isEditing">
+        <br><br><br>
+            <!-- LIST -->
+        <ion-content class="padding has-header">
+            <div class="bar bar-header">
+                <span ng-click="vm.isCreating = true"><i class='icon ion-plus-round new-item'> Add Item</i></span>
+            </div>
+            <br><br>
+            <div class="list">
+            <div ng-repeat="(key,value) in vm.groupedByMonth">
+              <div class="item item-divider">
+                {{vm.month(key)}}
+              </div>
+              <div ng-repeat="event in value">
+                  <a class="item" href="#">
+                    <h2 class="text-center">{{event.description}}</h2>
+                    <div class="item item-body">
+                                Starts: {{event.starts_at | date: 'MMMM d'}}  Ends: {{event.ends_at | date: 'MMMM d'}}
+                    </div>
+                  </a>
+              </div>
+            </div>
+            </div>
+        </ion-content>
+    </div>
+    <div ng-if="vm.isCreating">
+        <ion-content class="padding has-header">
+            <!-- CREATING -->
+            <div class="bar bar-header">
+                <h2 class="title">Create Item</h2>
+                <span ng-click="vm.cancelCreate()" class="cancel-create">Cancel</span>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class=" bar-subheader">
+                <form class="create-form" role="form"
+                      ng-submit="vm.create(vm.newObject)" novalidate>
+                    <div class="list">
+                        <!-- <label class="item item-input item-stacked-label">
+                            <span class="input-label">Name</span>
+                            <input type="text" class="form-control"
+                                   ng-model="vm.newObject.name"
+                                   placeholder="Enter name">
+                        </label> -->
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Description</span>
+                        <input type="text" placeholder="Enter description" class="form-control"
+                                  ng-model="vm.newObject.description"
+                                  placeholder="Enter description"></input>
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Starts At</span>
+                        <input type="date" placeholder="Enter start date" class="form-control"
+                                  ng-model="vm.newObject.starts_at"
+                                  placeholder="Enter description"></input>
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Ends At</span>
+                        <input type="date" placeholder="Enter end date" class="form-control"
+                                  ng-model="vm.newObject.ends_at"
+                                  placeholder="Enter description"></input>
+                        </label>
+                    </div>
+                    <button class="button button-block button-positive" type="submit">Create</button>
+                </form>
+            </div>
+        </ion-content>
+    </div>
+    <div ng-if="vm.isEditing && !vm.isCreating">
+        <ion-content class="padding has-header">
+            <!-- EDITING -->
+            <div class="bar bar-header bar-secondary">
+                <h1 class="title">Editing {{vm.edited.name}}</h1>
+                <span ng-click="vm.cancelEditing()" class="cancel-create">Cancel</span>
+            </div>
+            <div class="bar bar-subheader">
+                <form class="edit-form" role="form"
+                      ng-submit="vm.update(vm.edited)" novalidate>
+                    <div class="list">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Name</span>
+                            <input type="text" class="form-control"
+                                   ng-model="vm.edited.name"
+                                   placeholder="Enter name">
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Description</span>
+                    <textarea class="form-control"
+                              ng-model="vm.edited.description"
+                              placeholder="Enter description"></textarea>
+
+                        </label>
+                    </div>
+                    <button class="button button-block button-positive" type="submit">Save</button>
+                </form>
+            </div>
+        </ion-content>
+    </div>
+</ion-view>
+
