@@ -17,6 +17,8 @@
                     <h2 class="text-center">{{event.description}}</h2>
                     <div class="item item-body">
                                 Starts: {{event.starts_at | date: 'MMMM d'}}  Ends: {{event.ends_at | date: 'MMMM d'}}
+                    <a ng-if="event.website_link" href="{{event.website_link}}" target="_blank">Website Link</a>
+                    <a ng-if="event.facebook_link" href="{{event.facebook_link}}" target="_blank">Facebook Link</a>
                     </div>
                   </a>
               </div>
@@ -35,8 +37,8 @@
             <br>
             <br>
             <div class=" bar-subheader">
-                <form class="create-form" role="form"
-                      ng-submit="vm.create(vm.newObject)" novalidate>
+                <form name="addEvent" class="create-form" role="form"
+                      ng-submit="vm.create(vm.newObject)" >
                     <div class="list">
                         <!-- <label class="item item-input item-stacked-label">
                             <span class="input-label">Name</span>
@@ -48,22 +50,37 @@
                             <span class="input-label">Description</span>
                         <input type="text" placeholder="Enter description" class="form-control"
                                   ng-model="vm.newObject.description"
-                                  placeholder="Enter description"></input>
+                                  placeholder="Enter description"
+                                  required></input>
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Website Link</span>
+                        <input type="text" placeholder="Enter website link" class="form-control"
+                                  ng-model="vm.newObject.website_link"
+                                  ></input>
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Facebook Link</span>
+                        <input type="text" placeholder="Enter facebook link" class="form-control"
+                                  ng-model="vm.newObject.facebook_link"
+                                  ></input>
                         </label>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Starts At</span>
                         <input type="date" placeholder="Enter start date" class="form-control"
                                   ng-model="vm.newObject.starts_at"
-                                  placeholder="Enter description"></input>
+                                  placeholder="Enter description"
+                                  required></input>
                         </label>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Ends At</span>
                         <input type="date" placeholder="Enter end date" class="form-control"
                                   ng-model="vm.newObject.ends_at"
-                                  placeholder="Enter description"></input>
+                                  placeholder="Enter description"
+                                  required></input>
                         </label>
                     </div>
-                    <button class="button button-block button-positive" type="submit">Create</button>
+                    <button class="button button-block button-positive" type="submit" ng-disabled="addEvent.$invalid">Create</button>
                 </form>
             </div>
         </ion-content>
